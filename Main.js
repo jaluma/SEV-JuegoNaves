@@ -5,6 +5,7 @@ var escaladoMinimo = 1;
 
 // Controles
 var controles = {};
+var nave = {}
 
 // Capas
 var gameLayer;
@@ -15,16 +16,12 @@ function iniciarJuego() {
     setInterval(loop, 1000 / 30);
 }
 
-
-
 function loop(){
     console.log("loop - ")
     gameLayer.actualizar();
     gameLayer.procesarControles()
     gameLayer.dibujar();
 }
-
-
 
 // Cambio de escalado
 window.addEventListener('load', resize, false);

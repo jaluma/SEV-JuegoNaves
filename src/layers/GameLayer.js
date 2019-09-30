@@ -1,3 +1,5 @@
+var naveIndex = 0   // por defecto
+
 class GameLayer extends Layer {
 
     constructor() {
@@ -92,6 +94,8 @@ class GameLayer extends Layer {
         for (var i=0; i < this.enemigos.length; i++){
             if ( this.jugador.colisiona(this.enemigos[i])){
                 this.colision()
+                this.enemigos.splice(j, 1);
+                i = i-1;
             }
         }
         // colisiones , disparoJugador - Enemigo
@@ -122,6 +126,18 @@ class GameLayer extends Layer {
 
         this.puntos.dibujar();
         this.vidas.dibujar();
+
+        if (nave.cambio) {
+            if (this.jugador instanceof Jugador2 && nave.index === 0) {
+                this.jugador = new Jugador(this.jugador.x, this.jugador.y)
+                this.jugador.dibujar()
+            } else if (this.jugador instanceof Jugador && nave.index === 1) {
+                this.jugador = new Jugador2(this.jugador.x, this.jugador.y)
+                this.jugador.dibujar()
+            }
+
+        }
+
     }
 
     colision() {
@@ -129,7 +145,7 @@ class GameLayer extends Layer {
         if (this.jugador.colision()) {
             this.iniciar();
         }
-        this.vidas.value = this.jugador.vida
+        this.vidas.valor = this.jugador.vida
     }
 
     dibujar (){

@@ -1,8 +1,7 @@
 class Modelo {
 
     constructor(imagenRuta, x, y) {
-        this.imagen = new Image();
-        this.imagen.src = imagenRuta;
+        this.cargarImagen(imagenRuta)
         this.x = x;
         this.y = y;
         this.ancho = this.imagen.width;
@@ -40,5 +39,9 @@ class Modelo {
         return false;
     }
    
+    cargarImagen(imagen) {
+        this.imagen = new Image();
+        this.imagen.src = imagen;
+    }
 
 }

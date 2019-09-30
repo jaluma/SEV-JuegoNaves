@@ -1,6 +1,7 @@
 // Lista re recursos a precargar
 var imagenes = {
     jugador : "res/jugador.png",
+    jugador2 : "res/nave2.png",
     fondo : "res/fondo.png",
     enemigo : "res/enemigo.png",
     enemigo_movimiento : "res/enemigo_movimiento.png",

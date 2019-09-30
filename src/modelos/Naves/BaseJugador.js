@@ -1,13 +1,16 @@
-class Jugador extends Modelo {
+class BaseJugador extends Modelo {
 
-    constructor(x, y) {
-        super(imagenes.jugador , x, y)
+    constructor(imagen, x, y) {
+        super(imagen, x, y)
+
         this.vx = 0; // velocidadX
         this.vy = 0; // velocidadY
         
         // Disparo
         this.cadenciaDisparo = 10;
         this.tiempoDisparo = 0;
+
+        this.mult = 3
 
         this.resetVida();
     }
@@ -23,11 +26,11 @@ class Jugador extends Modelo {
     }
 
     moverX (direccion){
-        this.vx = direccion * 3;
+        this.vx = direccion * this.mult;
     }
 
     moverY (direccion){
-        this.vy = direccion * 3;
+        this.vy = direccion * this.mult;
     }
 
     disparar(){
