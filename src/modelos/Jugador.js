@@ -9,6 +9,7 @@ class Jugador extends Modelo {
         this.cadenciaDisparo = 10;
         this.tiempoDisparo = 0;
 
+        this.resetVida();
     }
 
     actualizar(){
@@ -40,6 +41,22 @@ class Jugador extends Modelo {
             return null;
         }
 
+    }
+
+    isMuerto() {
+        return this.vida === 0;
+    }
+
+    colision() {
+        this.vida--;
+        if (this.isMuerto()) {
+            return true;
+        }
+        return false;
+    }
+
+    resetVida() {
+        this.vida = 3
     }
 
 }

@@ -7,6 +7,7 @@ var imagenes = {
     disparo_jugador : "res/disparo_jugador.png",
     disparo_enemigo : "res/disparo_enemigo.png",
     icono_puntos : "res/icono_puntos.png",
+    icono_vidas : "res/icono_vidas.png",
     sapo: "res/sapo.png"
 };
 

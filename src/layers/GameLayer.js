@@ -8,12 +8,12 @@ class GameLayer extends Layer {
     iniciar() {
         reproducirMusica();
 
-        this.fondoPuntos =
-            new Fondo(imagenes.icono_puntos, 480*0.85,320*0.05);
+        this.fondoPuntos = new Fondo(imagenes.icono_puntos, 480*0.85,320*0.05);
+        this.fondoVidas = new Fondo(imagenes.icono_vidas, 480*0.12,320*0.07);
 
         this.puntos = new Texto(0,480*0.9,320*0.07 );
 
-        this.jugador = new Jugador(50, 50);
+        this.jugador = new Jugador(100, 100);
         this.fondo = new Fondo(imagenes.fondo,480*0.5,320*0.5);
 
         this.enemigos = [];
@@ -25,7 +25,8 @@ class GameLayer extends Layer {
 
         this.disparosJugador = []
         this.disparosEnemigos = []
-        this.puntos = new Texto(0,480*0.9,320*0.07 );
+
+        this.vidas = new Texto(this.jugador.vida,480*0.2,320*0.07 );
 
         this.cadenciaDisparosEnemigos = 6;
     }
@@ -90,7 +91,7 @@ class GameLayer extends Layer {
         // colisiones
         for (var i=0; i < this.enemigos.length; i++){
             if ( this.jugador.colisiona(this.enemigos[i])){
-                this.iniciar();
+                this.colision()
             }
         }
         // colisiones , disparoJugador - Enemigo
@@ -115,12 +116,20 @@ class GameLayer extends Layer {
                 this.disparosEnemigos.splice(i, 1);
                 i = i-1;
 
-                // si nos impactan reiniciamos
-                this.iniciar();
+                this.colision()
             }
         }
 
         this.puntos.dibujar();
+        this.vidas.dibujar();
+    }
+
+    colision() {
+        // reseteamos si muere. ademas baja la vida
+        if (this.jugador.colision()) {
+            this.iniciar();
+        }
+        this.vidas.value = this.jugador.vida
     }
 
     dibujar (){
@@ -138,7 +147,9 @@ class GameLayer extends Layer {
         }
 
         this.puntos.dibujar();
+        this.vidas.dibujar();
         this.fondoPuntos.dibujar();
+        this.fondoVidas.dibujar()
     }
 
 
