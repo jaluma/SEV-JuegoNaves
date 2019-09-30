@@ -6,6 +6,8 @@ window.addEventListener('keyup', onKeyUp, false);
 var oneKey = 49
 var twoKey = 50
 
+var spaceKey = 32
+
 var aKey = 65;
 var wKey = 87
 var sKey = 83
@@ -22,7 +24,7 @@ function onKeyDown( event) {
     if ( posicion == -1 ) {
         teclas.push(event.keyCode);
         switch ( event.keyCode ){
-            case 32:
+            case spaceKey:
                 controles.disparo = true;
                 break;
             case upKey:
@@ -56,25 +58,25 @@ function onKeyUp( event) {
     var posicion = teclas.indexOf(event.keyCode);
     teclas.splice( posicion, 1);
     switch ( event.keyCode ){
-        case 32:
+        case spaceKey:
             controles.disparo = false;
             break;
-        case 38:
+        case upKey:
             if ( controles.moverY == 1 ){
                 controles.moverY = 0;
             }
             break;
-        case 40:
+        case downKey:
             if ( controles.moverY == -1 ){
                 controles.moverY = 0;
             }
             break;
-        case 39:
+        case rightKey:
             if ( controles.moverX == 1 ){
                 controles.moverX = 0;
             }
             break;
-        case 37:
+        case leftKey:
             if ( controles.moverX == -1 ){
                 controles.moverX = 0;
             }
