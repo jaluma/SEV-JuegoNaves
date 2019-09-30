@@ -1,7 +1,7 @@
 class Jugador2 extends BaseJugador {
 
-    constructor(x, y) {
-        super(imagenes.jugador2, x, y)
+    constructor(x, y, vida) {
+        super(imagenes.jugador2, x, y, vida)
 
         this.vx = 0.1; // velocidadX
         this.vy = 0.5; // velocidadY

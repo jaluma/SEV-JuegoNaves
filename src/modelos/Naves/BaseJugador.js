@@ -1,6 +1,6 @@
 class BaseJugador extends Modelo {
 
-    constructor(imagen, x, y) {
+    constructor(imagen, x, y, vida) {
         super(imagen, x, y)
 
         this.vx = 0; // velocidadX
@@ -12,7 +12,12 @@ class BaseJugador extends Modelo {
 
         this.mult = 3
 
-        this.resetVida();
+        if (vida) {
+            this.vida = vida
+        } else {
+            this.resetVida()
+        }
+
     }
 
     actualizar(){

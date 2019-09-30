@@ -104,13 +104,15 @@ class GameLayer extends Layer {
                 if (this.disparosJugador[i] != null &&
                     this.enemigos[j] != null &&
                     this.disparosJugador[i].colisiona(this.enemigos[j])) {
-
-                        this.puntos.valor+=this.enemigos[j].puntos;
-
                         this.disparosJugador.splice(i, 1);
                         i = i-1;
-                        this.enemigos.splice(j, 1);
-                        j = j-1;
+
+                        if (this.enemigos[j].colision()) {
+                            this.puntos.valor+=this.enemigos[j].puntos;
+
+                            this.enemigos.splice(j, 1);
+                            j = j-1;
+                        }
                 }
             }
         }
@@ -129,10 +131,10 @@ class GameLayer extends Layer {
 
         if (nave.cambio) {
             if (this.jugador instanceof Jugador2 && nave.index === 0) {
-                this.jugador = new Jugador(this.jugador.x, this.jugador.y)
+                this.jugador = new Jugador(this.jugador.x, this.jugador.y, this.jugador.vida)
                 this.jugador.dibujar()
             } else if (this.jugador instanceof Jugador && nave.index === 1) {
-                this.jugador = new Jugador2(this.jugador.x, this.jugador.y)
+                this.jugador = new Jugador2(this.jugador.x, this.jugador.y, this.jugador.vida)
                 this.jugador.dibujar()
             }
 
@@ -178,29 +180,33 @@ class GameLayer extends Layer {
             }
         }
 
+        this.movimiento(this.jugador)
+
+    }
+
+
+    movimiento(jugador) {
         // Eje X
         if ( controles.moverX > 0 ){
-            this.jugador.moverX(1);
+            jugador.moverX(1);
 
         }else if ( controles.moverX < 0){
-            this.jugador.moverX(-1);
+            jugador.moverX(-1);
 
         } else {
-            this.jugador.moverX(0);
+            jugador.moverX(0);
         }
 
         // Eje Y
         if ( controles.moverY > 0 ){
-            this.jugador.moverY(-1);
+            jugador.moverY(-1);
 
         } else if ( controles.moverY < 0 ){
-            this.jugador.moverY(1);
+            jugador.moverY(1);
 
         } else {
-            this.jugador.moverY(0);
+            jugador.moverY(0);
         }
-
     }
-
 
 }

@@ -3,6 +3,7 @@ class BaseEnemigo extends Modelo {
     constructor(imagen, x, y) {
         super(imagen, x, y)
         this.dispara = true;
+        this.resetVida()
     }
 
     dibujar() {
@@ -25,6 +26,22 @@ class BaseEnemigo extends Modelo {
 
     resetDisparar() {
         this.disp = this.cadenciaDisparo;
+    }
+
+    isMuerto() {
+        return this.vida === 0;
+    }
+
+    colision() {
+        this.vida--;
+        if (this.isMuerto()) {
+            return true;
+        }
+        return false;
+    }
+
+    resetVida() {
+        this.vida = 1
     }
 
 }
