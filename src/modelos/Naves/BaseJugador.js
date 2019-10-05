@@ -12,6 +12,8 @@ class BaseJugador extends Modelo {
 
         this.mult = 3
 
+        this.name = name
+
         if (vida) {
             this.vida = vida
         } else {
@@ -44,7 +46,7 @@ class BaseJugador extends Modelo {
             // reiniciar Cadencia
             this.tiempoDisparo = this.cadenciaDisparo;
             reproducirEfecto(efectos.disparo);
-            return new DisparoJugador(this.x, this.y);
+            return new DisparoJugador(this.x, this.y, this);
         } else {
             return null;
         }

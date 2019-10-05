@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f745157f-24dc-48cc-980e-882cb54a1032" name="Default" comment="" />
+    <list default="true" id="f745157f-24dc-48cc-980e-882cb54a1032" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventosTeclado.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventosTeclado.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layers/GameLayer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/GameLayer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modelos/Disparos/DisparoJugador.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelos/Disparos/DisparoJugador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modelos/Naves/BaseJugador.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelos/Naves/BaseJugador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modelos/Naves/Jugador.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelos/Naves/Jugador.js" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,11 +22,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1RNQk0HpN84kOE3ql4FNXW1B6QK" />
   <component name="PropertiesComponent">
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Plataformas" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
   </component>
   <component name="RecentsManager">
@@ -52,10 +62,22 @@
       <workItem from="1568900668260" duration="7382000" />
       <workItem from="1569505217838" duration="893000" />
       <workItem from="1569855926688" duration="602000" />
+      <workItem from="1570109947959" duration="45000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

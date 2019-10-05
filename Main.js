@@ -4,8 +4,13 @@ var contexto = canvas.getContext("2d");
 var escaladoMinimo = 1;
 
 // Controles
-var controles = {};
+var controles = [];
+controles[0] = {}
+controles[1] = {}
 var nave = {}
+
+// vidas
+var vida = 3;
 
 // Capas
 var gameLayer;

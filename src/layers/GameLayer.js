@@ -10,12 +10,17 @@ class GameLayer extends Layer {
     iniciar() {
         reproducirMusica();
 
-        this.fondoPuntos = new Fondo(imagenes.icono_puntos, 480*0.85,320*0.05);
+        this.fondoPuntos = new Fondo(imagenes.icono_puntos, 480*0.85,320*0.07);
         this.fondoVidas = new Fondo(imagenes.icono_vidas, 480*0.12,320*0.07);
 
-        this.puntos = new Texto(0,480*0.9,320*0.07 );
+        this.puntos = []
+        this.puntos[0] = new Texto(0,480*0.9,320*0.07 );
+        this.puntos[1] = new Texto(0,480*0.9,320*0.14 );
 
-        this.jugador = new Jugador(100, 100);
+        this.jugadores = []
+        this.jugadores[0] = new Jugador(100, 100);
+        this.jugadores[1] = new Jugador(100, 300);
+
         this.fondo = new Fondo(imagenes.fondo,480*0.5,320*0.5);
 
         this.enemigos = [];
@@ -28,7 +33,9 @@ class GameLayer extends Layer {
         this.disparosJugador = []
         this.disparosEnemigos = []
 
-        this.vidas = new Texto(this.jugador.vida,480*0.2,320*0.07 );
+        this.vidas = []
+        this.vidas[0] = new Texto(this.jugadores[0].vida,480*0.2,320*0.07 );
+        this.vidas[1] = new Texto(this.jugadores[1].vida,480*0.2,320*0.14 );
 
         this.cadenciaDisparosEnemigos = 6;
     }
@@ -79,7 +86,9 @@ class GameLayer extends Layer {
             this.iteracionesCrearEnemigos = 110;
         }
 
-        this.jugador.actualizar();
+        for (var i=0; i < this.jugadores.length; i++){
+        this.jugadores[i].actualizar();
+        }
         for (var i=0; i < this.enemigos.length; i++){
             this.enemigos[i].actualizar();
         }
@@ -92,62 +101,81 @@ class GameLayer extends Layer {
 
         // colisiones
         for (var i=0; i < this.enemigos.length; i++){
-            if ( this.jugador.colisiona(this.enemigos[i])){
-                this.colision()
-                this.enemigos.splice(j, 1);
-                i = i-1;
+            for (var j=0; j < this.jugadores.length; j++){
+                if ( this.jugadores[j].colisiona(this.enemigos[i])){
+                    this.colision(j)
+                    this.enemigos.splice(j, 1);
+                    i = i-1;
+                }
             }
         }
         // colisiones , disparoJugador - Enemigo
         for (var i=0; i < this.disparosJugador.length; i++){
             for (var j=0; j < this.enemigos.length; j++){
-                if (this.disparosJugador[i] != null &&
-                    this.enemigos[j] != null &&
-                    this.disparosJugador[i].colisiona(this.enemigos[j])) {
-                        this.disparosJugador.splice(i, 1);
-                        i = i-1;
+                for (var k=0; k < this.jugadores.length; k++){
+                    if (this.disparosJugador[i] != null &&
+                        this.enemigos[j] != null &&
+                        this.disparosJugador[i].jugador === this.jugadores[k] && 
+                        this.disparosJugador[i].colisiona(this.enemigos[j])) {
+                            this.disparosJugador.splice(i, 1);
+                            i = i-1;
 
-                        if (this.enemigos[j].colision()) {
-                            this.puntos.valor+=this.enemigos[j].puntos;
+                            if (this.enemigos[j].colision(this.jugadores[k])) {
+                                this.puntos[k].valor+=this.enemigos[j].puntos;
 
-                            this.enemigos.splice(j, 1);
-                            j = j-1;
-                        }
+                                this.enemigos.splice(j, 1);
+                                j = j-1;
+                            }
+                    }
                 }
             }
         }
 
         for (var i=0; i < this.disparosEnemigos.length; i++){
-            if (this.disparosEnemigos[i] != null && this.jugador != null && this.disparosEnemigos[i].colisiona(this.jugador)) {
-                this.disparosEnemigos.splice(i, 1);
-                i = i-1;
+            for (var j=0; j < this.jugadores.length; j++){
+                if (this.disparosEnemigos[i] != null && this.jugadores[j] != null && this.disparosEnemigos[i].colisiona(this.jugadores[j])) {
+                    this.disparosEnemigos.splice(i, 1);
+                    i = i-1;
 
-                this.colision()
+                    this.colision(j)
+                }
             }
         }
 
-        this.puntos.dibujar();
-        this.vidas.dibujar();
+        for(var i = 0; i < this.puntos.length; i++) {
+            this.puntos[i].dibujar();
+        }
+        for(var i = 0; i < this.vidas.length; i++) {
+            this.vidas[i].dibujar();
+        }
 
-        if (nave.cambio) {
-            if (this.jugador instanceof Jugador2 && nave.index === 0) {
-                this.jugador = new Jugador(this.jugador.x, this.jugador.y, this.jugador.vida)
-                this.jugador.dibujar()
-            } else if (this.jugador instanceof Jugador && nave.index === 1) {
-                this.jugador = new Jugador2(this.jugador.x, this.jugador.y, this.jugador.vida)
-                this.jugador.dibujar()
-            }
 
+        for (var j=0; j < this.jugadores.length; j++){
+            this.cambioNave(j)
         }
 
     }
 
-    colision() {
-        // reseteamos si muere. ademas baja la vida
-        if (this.jugador.colision()) {
-            this.iniciar();
+    cambioNave(indexPlayer) {
+        if (controles[indexPlayer].cambioNave) {
+            var jugador = this.jugadores[indexPlayer]
+            if (jugador instanceof Jugador2 && controles[indexPlayer].index === 0) {
+                jugador = new Jugador(jugador.x, this.jugador.y, jugador.vida)
+                jugador.dibujar()
+            } else if (this.jugador instanceof Jugador && controles[indexPlayer].index === 1) {
+                jugador = new Jugador2(jugador.x, jugador.y, jugador.vida)
+                jugador.dibujar()
+            }
         }
-        this.vidas.valor = this.jugador.vida
+    }
+
+    colision(index) {
+        var jugador = this.jugadores[index]
+        // reseteamos si muere. ademas baja la vida
+        if (jugador.colision()) {
+            return this.iniciar();
+        }
+        this.vidas[index].valor = jugador.vida
     }
 
     dibujar (){
@@ -159,13 +187,20 @@ class GameLayer extends Layer {
             this.disparosEnemigos[i].dibujar();
         }
 
-        this.jugador.dibujar();
+        for (var i=0; i < this.jugadores.length; i++){
+            this.jugadores[i].dibujar();
+        }
         for (var i=0; i < this.enemigos.length; i++){
             this.enemigos[i].dibujar();
         }
 
-        this.puntos.dibujar();
-        this.vidas.dibujar();
+        for(var i = 0; i < this.vidas.length; i++) {
+            this.vidas[i].dibujar();
+        }
+        for(var i = 0; i < this.puntos.length; i++) {
+            this.puntos[i].dibujar();
+        }
+
         this.fondoPuntos.dibujar();
         this.fondoVidas.dibujar()
     }
@@ -173,39 +208,43 @@ class GameLayer extends Layer {
 
     procesarControles( ){
         // disparar
-        if (  controles.disparo ){
-            var nuevoDisparo = this.jugador.disparar();
-            if ( nuevoDisparo != null ) {
-                this.disparosJugador.push(nuevoDisparo);
+        for (var i=0; i < this.jugadores.length; i++){
+            if (  controles[i].disparo ){
+                var nuevoDisparo = this.jugadores[i].disparar();
+                if ( nuevoDisparo != null ) {
+                    this.disparosJugador.push(nuevoDisparo);
+                }
             }
+            this.movimiento(i)
         }
+        
 
-        this.movimiento(this.jugador)
+
 
     }
 
 
-    movimiento(jugador) {
+    movimiento(index) {
         // Eje X
-        if ( controles.moverX > 0 ){
-            jugador.moverX(1);
+        if ( controles[index].moverX > 0 ){
+            this.jugadores[index].moverX(1);
 
-        }else if ( controles.moverX < 0){
-            jugador.moverX(-1);
+        }else if ( controles[index].moverX < 0){
+            this.jugadores[index].moverX(-1);
 
         } else {
-            jugador.moverX(0);
+            this.jugadores[index].moverX(0);
         }
 
         // Eje Y
-        if ( controles.moverY > 0 ){
-            jugador.moverY(-1);
+        if ( controles[index].moverY > 0 ){
+            this.jugadores[index].moverY(-1);
 
-        } else if ( controles.moverY < 0 ){
-            jugador.moverY(1);
+        } else if ( controles[index].moverY < 0 ){
+            this.jugadores[index].moverY(1);
 
         } else {
-            jugador.moverY(0);
+            this.jugadores[index].moverY(0);
         }
     }
 

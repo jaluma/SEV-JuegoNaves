@@ -1,8 +1,9 @@
 class DisparoJugador extends Modelo {
 
-    constructor(x, y) {
+    constructor(x, y, jugador) {
         super(imagenes.disparo_jugador, x, y)
         this.vx = 9;
+        this.jugador = jugador
     }
 
     actualizar (){
