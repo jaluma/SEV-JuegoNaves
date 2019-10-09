@@ -10,7 +10,7 @@ class BaseEnemigo extends Modelo {
         super.dibujar();
     }
 
-    disparar(){
+    disparar() {
         if (this.tocaDisparar()) {
             this.resetDisparar();
             return new DisparoEnemigo(this.x, this.y);
@@ -34,10 +34,7 @@ class BaseEnemigo extends Modelo {
 
     colision() {
         this.vida--;
-        if (this.isMuerto()) {
-            return true;
-        }
-        return false;
+        return this.isMuerto();
     }
 
     resetVida() {
